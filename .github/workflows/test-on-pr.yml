@@ -1,0 +1,26 @@
+name: Run Tests on PR
+
+# 이 이벤트는 PR(pull request)이 생성되거나 업데이트될 때 트리거됩니다.
+on:
+  pull_request:
+    branches:
+      - main # 메인 브랜치 또는 테스트할 브랜치를 지정합니다. 필요에 따라 수정하세요.
+
+jobs:
+  test:
+    runs-on: ubuntu-latest # GitHub에서 제공하는 최신 Ubuntu 환경에서 실행
+    
+    steps:
+      - name: Check out the repository
+        uses: actions/checkout@v3 # GitHub Actions에서 소스 코드를 체크아웃하는 공식 액션
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '14' # 프로젝트에서 사용 중인 Node.js 버전을 지정하세요.
+
+      - name: Install dependencies
+        run: npm install # 패키지 설치
+
+      - name: Run tests
+        run: npm run test # 테스트 실행
