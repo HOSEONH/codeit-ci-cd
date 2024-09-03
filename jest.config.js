@@ -1,10 +1,20 @@
 module.exports = {
-  preset: 'ts-jest',
-  testEnvironment: 'jsdom',
-  moduleFileExtensions: ['js', 'jsx', 'ts', 'tsx'],
+  preset: 'ts-jest/presets/js-with-ts-esm',  // ts-jest 프리셋 사용
+  testEnvironment: 'jsdom',  // 브라우저 환경에서 테스트 실행
   transform: {
-    '^.+\\.(ts|tsx)$': 'ts-jest',
+    '^.+\\.(js|jsx|ts|tsx)$': ['ts-jest', {
+      useESM: true,
+    }],
   },
-  extensionsToTreatAsEsm: ['.ts', '.tsx'],  // ESM 지원을 위해 확장자 설정
-  // ESM을 지원하기 위해 필요한 설정이 있을 수 있습니다.
+  moduleNameMapper: {
+    '\\.(css|less|scss|sass)$': 'identity-obj-proxy', // CSS 모듈을 위한 매핑
+  },
+  extensionsToTreatAsEsm: ['.ts', '.tsx'],
+  globals: {
+    'ts-jest': {
+      tsconfig: {
+        jsx: 'react-jsx',
+      },
+    },
+  },
 };
