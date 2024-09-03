@@ -3,11 +3,12 @@ name: CI
 on:
   push:
     branches:
-      - master  
+      - master
 
 jobs:
   build:
     runs-on: ubuntu-latest
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
@@ -15,10 +16,19 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v2
         with:
-          node-version: '18'
+          node-version: '18' 
 
       - name: Install dependencies
         run: npm install
 
-      - name: Run tests
-        run: npm test
+      - name: Run tests with coverage
+        run: npm test -- --coverage  # Jest가 커버리지 리포트를 생성하도록 설정
+
+      - name: Upload coverage to Codecov
+        uses: codecov/codecov-action@v3
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }} # Codecov 토큰을 GitHub Secrets에 저장해야 합니다.
+          files: ./coverage/lcov.info  # Jest가 생성한 커버리지 리포트 파일 경로
+          flags: unittests
+          name: codeit-ci-cd
+          fail_ci_if_error: true
