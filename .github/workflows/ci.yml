@@ -31,5 +31,5 @@ jobs:
           files: ./coverage/lcov.info  # Jest가 생성한 커버리지 리포트 파일 경로
           flags: unittests
           name: codeit-ci-cd
-          fail_ci_if_error: true
+          fail_ci_if_error: true   
    
