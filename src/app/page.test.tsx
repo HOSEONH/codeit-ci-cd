@@ -1,10 +1,10 @@
 import { render } from "@testing-library/react";
 import "@testing-library/jest-dom";
-import Page from "./page";
+import Home from "./page";
 
 describe("Page", () => {
     it("renders the page", () => {
-        const { getByText } = render(<Page />);
+        const { getByText } = render(<Home />);
         expect(getByText("Get started by editing")).toHaveTextContent("Get started by editing");
     });
 });
